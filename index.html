@@ -1,13 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#111111">
-
   <meta name="description" content="Découvrez Les Vainqueurs Academy et ses formations professionnelles. Préparez votre avenir et votre admission en ligne.">
-
   <title>Les Vainqueurs Academy | Admissions en ligne</title>
 
   <style>
@@ -21,27 +18,15 @@
       --border: #E8E8E8;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: Arial, sans-serif;
       background: var(--white);
       color: #222;
       line-height: 1.7;
     }
-
-    a {
-      text-decoration: none;
-    }
-
+    a { text-decoration: none; }
     .container {
       width: 100%;
       max-width: 1150px;
@@ -49,14 +34,11 @@
       padding: 0 22px;
     }
 
-    /* HEADER */
-
     header {
       background: var(--black);
       color: var(--white);
       border-bottom: 3px solid var(--gold);
     }
-
     .header-content {
       min-height: 85px;
       display: flex;
@@ -64,7 +46,6 @@
       align-items: center;
       gap: 20px;
     }
-
     .logo {
       color: var(--gold);
       font-size: 19px;
@@ -72,7 +53,6 @@
       letter-spacing: 1px;
       line-height: 1.3;
     }
-
     .logo small {
       display: block;
       color: white;
@@ -80,24 +60,48 @@
       letter-spacing: 3px;
       margin-top: 5px;
     }
-
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
     nav {
       display: flex;
       align-items: center;
       gap: 22px;
     }
-
     nav a {
       color: white;
       font-size: 13px;
       font-weight: bold;
     }
-
-    nav a:hover {
-      color: var(--gold);
+    nav a:hover { color: var(--gold); }
+    .language-select {
+      background: #222;
+      color: white;
+      border: 1px solid var(--gold);
+      border-radius: 5px;
+      padding: 9px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      min-width: 125px;
     }
-
-    /* HERO */
+    .language-select:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
 
     .hero {
       background:
@@ -107,12 +111,7 @@
       padding: 105px 20px;
       text-align: center;
     }
-
-    .hero-content {
-      max-width: 800px;
-      margin: auto;
-    }
-
+    .hero-content { max-width: 800px; margin: auto; }
     .hero-label {
       display: inline-block;
       color: var(--gold);
@@ -124,24 +123,18 @@
       letter-spacing: 2px;
       margin-bottom: 22px;
     }
-
     .hero h1 {
       font-size: clamp(32px, 6vw, 55px);
       line-height: 1.2;
       margin-bottom: 22px;
     }
-
-    .hero h1 span {
-      color: var(--gold);
-    }
-
+    .hero h1 span { color: var(--gold); }
     .hero p {
       color: #DDDDDD;
       max-width: 620px;
       margin: auto;
       font-size: 16px;
     }
-
     .btn {
       display: inline-block;
       background: var(--gold);
@@ -152,34 +145,16 @@
       font-weight: bold;
       transition: 0.3s;
     }
+    .btn:hover { background: white; transform: translateY(-2px); }
 
-    .btn:hover {
-      background: white;
-      transform: translateY(-2px);
-    }
-
-    /* SECTIONS */
-
-    section {
-      padding: 75px 0;
-    }
-
-    .section-heading {
-      text-align: center;
-      margin-bottom: 42px;
-    }
-
+    section { padding: 75px 0; }
+    .section-heading { text-align: center; margin-bottom: 42px; }
     .section-heading h2 {
       font-size: 29px;
       color: var(--black);
       line-height: 1.3;
     }
-
-    .section-heading p {
-      color: var(--gray);
-      margin-top: 12px;
-    }
-
+    .section-heading p { color: var(--gray); margin-top: 12px; }
     .gold-line {
       width: 65px;
       height: 4px;
@@ -188,14 +163,11 @@
       border-radius: 5px;
     }
 
-    /* DEPARTMENTS */
-
     .departments {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 22px;
     }
-
     .department {
       background: white;
       border: 1px solid var(--border);
@@ -206,12 +178,10 @@
       box-shadow: 0 5px 20px #00000008;
       transition: 0.3s;
     }
-
     .department:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 25px #00000012;
     }
-
     .department .number {
       display: inline-flex;
       width: 48px;
@@ -224,29 +194,15 @@
       font-weight: bold;
       margin-bottom: 17px;
     }
+    .department h3 { font-size: 21px; margin-bottom: 8px; }
+    .department p { color: var(--gray); font-size: 14px; }
 
-    .department h3 {
-      font-size: 21px;
-      margin-bottom: 8px;
-    }
-
-    .department p {
-      color: var(--gray);
-      font-size: 14px;
-    }
-
-    /* FORMATIONS */
-
-    .formations-section {
-      background: var(--light);
-    }
-
+    .formations-section { background: var(--light); }
     .formations {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 15px;
     }
-
     .formation {
       background: white;
       border: 1px solid var(--border);
@@ -257,13 +213,7 @@
       align-items: center;
       gap: 12px;
     }
-
-    .formation span {
-      color: #A17C15;
-      font-size: 19px;
-    }
-
-    /* ADMISSION STEPS */
+    .formation .symbol { color: #A17C15; font-size: 19px; }
 
     .steps {
       background: var(--black);
@@ -271,14 +221,12 @@
       border-radius: 12px;
       padding: 35px;
     }
-
     .step {
       display: flex;
       align-items: flex-start;
       gap: 18px;
       margin: 20px 0;
     }
-
     .step-number {
       background: var(--gold);
       color: var(--black);
@@ -290,35 +238,16 @@
       justify-content: center;
       font-weight: bold;
     }
-
-    .step p {
-      color: #DDDDDD;
-    }
-
-    /* CALL TO ACTION */
+    .step p { color: #DDDDDD; }
 
     .cta {
       background: var(--gold);
       text-align: center;
       padding: 60px 20px;
     }
-
-    .cta h2 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    .cta p {
-      max-width: 600px;
-      margin: auto;
-    }
-
-    .cta .btn {
-      background: var(--black);
-      color: white;
-    }
-
-    /* FOOTER */
+    .cta h2 { font-size: 28px; margin-bottom: 10px; }
+    .cta p { max-width: 600px; margin: auto; }
+    .cta .btn { background: var(--black); color: white; }
 
     footer {
       background: var(--black);
@@ -327,25 +256,13 @@
       padding: 35px 20px;
       border-top: 4px solid var(--gold);
     }
-
     footer .footer-name {
       color: var(--gold);
       font-weight: bold;
       font-size: 19px;
     }
-
-    footer p {
-      font-size: 13px;
-      margin-top: 7px;
-      color: #CCCCCC;
-    }
-
-    footer .copyright {
-      margin-top: 20px;
-      color: var(--gold);
-    }
-
-    /* RESPONSIVE */
+    footer p { font-size: 13px; margin-top: 7px; color: #CCCCCC; }
+    footer .copyright { margin-top: 20px; color: var(--gold); }
 
     @media (max-width: 760px) {
       .header-content {
@@ -353,268 +270,391 @@
         padding: 17px 0;
         gap: 15px;
       }
-
+      .header-tools {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+      }
       nav {
         flex-wrap: wrap;
         justify-content: center;
         gap: 12px 18px;
       }
-
-      nav a {
-        font-size: 12px;
-      }
-
-      .hero {
-        padding: 75px 20px;
-      }
-
-      section {
-        padding: 55px 0;
-      }
-
-      .departments {
-        grid-template-columns: 1fr;
-      }
-
-      .formations {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .section-heading h2 {
-        font-size: 25px;
-      }
-
-      .steps {
-        padding: 25px 18px;
-      }
+      nav a { font-size: 12px; }
+      .hero { padding: 75px 20px; }
+      section { padding: 55px 0; }
+      .departments { grid-template-columns: 1fr; }
+      .formations { grid-template-columns: repeat(2, 1fr); }
+      .section-heading h2 { font-size: 25px; }
+      .steps { padding: 25px 18px; }
     }
-
     @media (max-width: 420px) {
-      .formations {
-        grid-template-columns: 1fr;
-      }
-
-      .hero h1 {
-        font-size: 32px;
-      }
+      .formations { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 32px; }
     }
-
-    /* ACCESSIBILITY */
-
-    a:focus-visible {
-      outline: 3px solid var(--gold);
-      outline-offset: 4px;
-    }
-
     @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *, *::before, *::after {
-        transition-duration: 0.01ms !important;
-      }
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
     }
   </style>
 </head>
 
 <body>
-
   <header>
     <div class="container header-content">
-
-      <a href="#" class="logo">
+      <a href="#accueil" class="logo">
         LES VAINQUEURS ACADEMY
         <small>ONLINE ADMISSION SYSTEM</small>
       </a>
 
-      <nav aria-label="Navigation principale">
-        <a href="#accueil">Accueil</a>
-        <a href="#departments">Départements</a>
-        <a href="#formations">Formations</a>
-        <a href="#admission">Admission</a>
-      </nav>
+      <div class="header-tools">
+        <nav id="mainNavigation" aria-label="Navigation principale">
+          <a href="#accueil" data-i18n="navHome">Accueil</a>
+          <a href="#departments" data-i18n="navDepartments">Départements</a>
+          <a href="#formations" data-i18n="navCourses">Formations</a>
+          <a href="#admission" data-i18n="navAdmission">Admission</a>
+        </nav>
 
+        <label class="sr-only" for="languageSelect" data-i18n="languageLabel">Choisir la langue</label>
+        <select class="language-select" id="languageSelect" aria-label="Choisir la langue">
+          <option value="fr">🇫🇷 Français</option>
+          <option value="en">🇺🇸 English</option>
+          <option value="ht">🇭🇹 Kreyòl</option>
+          <option value="es">🇪🇸 Español</option>
+        </select>
+      </div>
     </div>
   </header>
 
   <main>
-
-    <!-- HERO -->
-
     <section class="hero" id="accueil">
       <div class="hero-content">
-
-        <span class="hero-label">
-          ONLINE ADMISSION SYSTEM
-        </span>
-
+        <span class="hero-label">ONLINE ADMISSION SYSTEM</span>
         <h1>
-          Construisez votre avenir avec
+          <span data-i18n="heroBefore">Construisez votre avenir avec</span>
           <span>Les Vainqueurs Academy</span>
         </h1>
-
-        <p>
-          Bienvenue sur la plateforme d'admission en ligne
-          de Les Vainqueurs Academy. Découvrez nos départements
-          et nos formations professionnelles.
-        </p>
-
-        <a href="#departments" class="btn">
-          Découvrir nos départements
-        </a>
-
+        <p data-i18n="heroText">Bienvenue sur la plateforme d'admission en ligne de Les Vainqueurs Academy. Découvrez nos départements et nos formations professionnelles.</p>
+        <a href="#departments" class="btn" data-i18n="heroButton">Découvrir nos départements</a>
       </div>
     </section>
-
-    <!-- DEPARTMENTS -->
-
-    <section id="departments">
+        <section id="departments">
       <div class="container">
-
         <div class="section-heading">
-          <h2>Choisissez votre département</h2>
+          <h2 data-i18n="departmentTitle">Choisissez votre département</h2>
           <div class="gold-line"></div>
-          <p>
-            Les admissions sont organisées dans trois départements.
-          </p>
+          <p data-i18n="departmentIntro">Les admissions sont organisées dans trois départements.</p>
         </div>
-
         <div class="departments">
-
           <article class="department">
             <div class="number">01</div>
             <h3>Sud-Est</h3>
-            <p>Département Sud-Est</p>
+            <p data-i18n="southEast">Département Sud-Est</p>
           </article>
-
           <article class="department">
             <div class="number">02</div>
             <h3>Ouest</h3>
-            <p>Département Ouest</p>
+            <p data-i18n="west">Département Ouest</p>
           </article>
-
           <article class="department">
             <div class="number">03</div>
             <h3>Nord</h3>
-            <p>Département Nord</p>
+            <p data-i18n="north">Département Nord</p>
           </article>
-
         </div>
-
       </div>
     </section>
-
-    <!-- FORMATIONS -->
 
     <section class="formations-section" id="formations">
       <div class="container">
-
         <div class="section-heading">
-          <h2>Nos formations</h2>
+          <h2 data-i18n="coursesTitle">Nos formations</h2>
           <div class="gold-line"></div>
-          <p>
-            Découvrez les domaines de formation proposés.
-          </p>
+          <p data-i18n="coursesIntro">Découvrez les domaines de formation proposés.</p>
         </div>
-
         <div class="formations">
-
-          <div class="formation"><span>◆</span> Cosmétologie Moderne</div>
-          <div class="formation"><span>◆</span> Décoration Événementielle</div>
-          <div class="formation"><span>◆</span> Couture de Base</div>
-          <div class="formation"><span>◆</span> Plomberie</div>
-          <div class="formation"><span>◆</span> Carrelage</div>
-          <div class="formation"><span>◆</span> Anglais</div>
-          <div class="formation"><span>◆</span> Dreadlocks</div>
-          <div class="formation"><span>◆</span> Piercing</div>
-          <div class="formation"><span>◆</span> Piano</div>
-          <div class="formation"><span>◆</span> Guitare</div>
-          <div class="formation"><span>◆</span> Art Floral</div>
-
+          <div class="formation"><span class="symbol">◆</span><span data-i18n="course1">Cosmétologie Moderne</span></div>
+          <div class="formation"><span class="symbol">◆</span><span data-i18n="course2">Décoration Événementielle</span></div>
+          <div class="formation"><span class="symbol">◆</span><span data-i18n="course3">Couture de Base</span></div>
+          <div class="formation"><span class="symbol">◆</span><span data-i18n="course4">Plomberie</span></div>
+          <div class="formation"><span class="symbol">◆</span><span data-i18n="course5">Carrelage</span></div>
+          <div class="formation"><span class="symbol">◆</span><span data-i18n="course6">Anglais</span></div>
+          <div class="formation"><span class="symbol">◆</span><span data-i18n="course7">Dreadlocks</span></div>
+          <div class="formation"><span class="symbol">◆</span><span data-i18n="course8">Piercing</span></div>
+          <div class="formation"><span class="symbol">◆</span><span data-i18n="course9">Piano</span></div>
+          <div class="formation"><span class="symbol">◆</span><span data-i18n="course10">Guitare</span></div>
+          <div class="formation"><span class="symbol">◆</span><span data-i18n="course11">Art Floral</span></div>
         </div>
-
       </div>
     </section>
-
-    <!-- ADMISSION PROCESS -->
 
     <section id="admission">
       <div class="container">
-
         <div class="section-heading">
-          <h2>Comment fonctionne l'admission ?</h2>
+          <h2 data-i18n="admissionTitle">Comment fonctionne l'admission ?</h2>
           <div class="gold-line"></div>
-          <p>
-            Les principales étapes de votre candidature.
-          </p>
+          <p data-i18n="admissionIntro">Les principales étapes de votre candidature.</p>
         </div>
-
         <div class="steps">
-
           <div class="step">
             <div class="step-number">1</div>
-            <p>Choisissez le département dans lequel vous souhaitez vous inscrire.</p>
+            <p data-i18n="step1">Choisissez le département dans lequel vous souhaitez vous inscrire.</p>
           </div>
-
           <div class="step">
             <div class="step-number">2</div>
-            <p>Sélectionnez une ou plusieurs formations.</p>
+            <p data-i18n="step2">Sélectionnez une ou plusieurs formations.</p>
           </div>
-
           <div class="step">
             <div class="step-number">3</div>
-            <p>Remplissez vos informations personnelles et préparez les documents demandés.</p>
+            <p data-i18n="step3">Remplissez vos informations personnelles et préparez les documents demandés.</p>
           </div>
-
           <div class="step">
             <div class="step-number">4</div>
-            <p>Soumettez votre candidature pour vérification par l'administration.</p>
+            <p data-i18n="step4">Soumettez votre candidature pour vérification par l'administration.</p>
           </div>
-
         </div>
-
       </div>
     </section>
-
-    <!-- CALL TO ACTION -->
 
     <section class="cta">
       <div class="container">
-
-        <h2>Préparez votre avenir dès aujourd'hui</h2>
-
-        <p>
-          Découvrez les possibilités de formation offertes
-          par Les Vainqueurs Academy.
-        </p>
-
-        <a href="#departments" class="btn">
-          Découvrir les départements
-        </a>
-
+        <h2 data-i18n="ctaTitle">Préparez votre avenir dès aujourd'hui</h2>
+        <p data-i18n="ctaText">Découvrez les possibilités de formation offertes par Les Vainqueurs Academy.</p>
+        <a href="#departments" class="btn" data-i18n="ctaButton">Découvrir les départements</a>
       </div>
     </section>
-
   </main>
-
-  <!-- FOOTER -->
 
   <footer>
     <div class="container">
-
-      <div class="footer-name">
-        LES VAINQUEURS ACADEMY
-      </div>
-
-      <p>Online Admission System</p>
-
-      <p class="copyright">
-        © 2026 - All Rights Reserved.
-      </p>
-
+      <div class="footer-name">LES VAINQUEURS ACADEMY</div>
+      <p data-i18n="footerSubtitle">Online Admission System</p>
+      <p class="copyright" data-i18n="copyright">© 2026 - Tous droits réservés.</p>
     </div>
   </footer>
 
+  <script>
+    const translations = {
+      fr: {
+        pageTitle: "Les Vainqueurs Academy | Admissions en ligne",
+        pageDescription: "Découvrez Les Vainqueurs Academy et ses formations professionnelles. Préparez votre avenir et votre admission en ligne.",
+        navHome: "Accueil",
+        navDepartments: "Départements",
+        navCourses: "Formations",
+        navAdmission: "Admission",
+        navLabel: "Navigation principale",
+        languageLabel: "Choisir la langue",
+        heroBefore: "Construisez votre avenir avec",
+        heroText: "Bienvenue sur la plateforme d'admission en ligne de Les Vainqueurs Academy. Découvrez nos départements et nos formations professionnelles.",
+        heroButton: "Découvrir nos départements",
+        departmentTitle: "Choisissez votre département",
+        departmentIntro: "Les admissions sont organisées dans trois départements.",
+        southEast: "Département Sud-Est",
+        west: "Département Ouest",
+        north: "Département Nord",
+        coursesTitle: "Nos formations",
+        coursesIntro: "Découvrez les domaines de formation proposés.",
+        course1: "Cosmétologie Moderne",
+        course2: "Décoration Événementielle",
+        course3: "Couture de Base",
+        course4: "Plomberie",
+        course5: "Carrelage",
+        course6: "Anglais",
+        course7: "Dreadlocks",
+        course8: "Piercing",
+        course9: "Piano",
+        course10: "Guitare",
+        course11: "Art Floral",
+        admissionTitle: "Comment fonctionne l'admission ?",
+        admissionIntro: "Les principales étapes de votre candidature.",
+        step1: "Choisissez le département dans lequel vous souhaitez vous inscrire.",
+        step2: "Sélectionnez une ou plusieurs formations.",
+        step3: "Remplissez vos informations personnelles et préparez les documents demandés.",
+        step4: "Soumettez votre candidature pour vérification par l'administration.",
+        ctaTitle: "Préparez votre avenir dès aujourd'hui",
+        ctaText: "Découvrez les possibilités de formation offertes par Les Vainqueurs Academy.",
+        ctaButton: "Découvrir les départements",
+        footerSubtitle: "Online Admission System",
+        copyright: "© 2026 - Tous droits réservés."
+      },
+      en: {
+        pageTitle: "Les Vainqueurs Academy | Online Admissions",
+        pageDescription: "Discover Les Vainqueurs Academy and its professional courses. Prepare for your future and apply online.",
+        navHome: "Home",
+        navDepartments: "Departments",
+        navCourses: "Courses",
+        navAdmission: "Admissions",
+        navLabel: "Main navigation",
+        languageLabel: "Choose language",
+        heroBefore: "Build your future with",
+        heroText: "Welcome to the Les Vainqueurs Academy online admission platform. Discover our departments and professional courses.",
+        heroButton: "Discover our departments",
+        departmentTitle: "Choose your department",
+        departmentIntro: "Admissions are organized in three departments.",
+        southEast: "South-East Department",
+        west: "West Department",
+        north: "North Department",
+        coursesTitle: "Our courses",
+        coursesIntro: "Discover the training programs we offer.",
+        course1: "Modern Cosmetology",
+        course2: "Event Decoration",
+        course3: "Basic Sewing",
+        course4: "Plumbing",
+        course5: "Tile Installation",
+        course6: "English",
+        course7: "Dreadlocks",
+        course8: "Piercing",
+        course9: "Piano",
+        course10: "Guitar",
+        course11: "Floral Art",
+        admissionTitle: "How does admission work?",
+        admissionIntro: "The main steps in your application.",
+        step1: "Choose the department where you would like to enroll.",
+        step2: "Select one or more courses.",
+        step3: "Fill in your personal information and prepare the required documents.",
+        step4: "Submit your application for review by the administration.",
+        ctaTitle: "Prepare your future today",
+        ctaText: "Discover the training opportunities offered by Les Vainqueurs Academy.",
+        ctaButton: "Discover the departments",
+        footerSubtitle: "Online Admission System",
+        copyright: "© 2026 - All rights reserved."
+      },
+             ht: {
+        pageTitle: "Les Vainqueurs Academy | Enskripsyon sou entènèt",
+        pageDescription: "Dekouvri Les Vainqueurs Academy ak fòmasyon pwofesyonèl li yo. Prepare avni ou epi fè demann admisyon sou entènèt.",
+        navHome: "Akèy",
+        navDepartments: "Depatman yo",
+        navCourses: "Fòmasyon yo",
+        navAdmission: "Admisyon",
+        navLabel: "Meni prensipal",
+        languageLabel: "Chwazi lang",
+        heroBefore: "Prepare avni ou avèk",
+        heroText: "Byenveni sou platfòm admisyon sou entènèt Les Vainqueurs Academy. Dekouvri depatman nou yo ak fòmasyon pwofesyonèl nou yo.",
+        heroButton: "Dekouvri depatman yo",
+        departmentTitle: "Chwazi depatman ou",
+        departmentIntro: "Admisyon yo òganize nan twa depatman.",
+        southEast: "Depatman Sidès",
+        west: "Depatman Lwès",
+        north: "Depatman Nò",
+        coursesTitle: "Fòmasyon nou yo",
+        coursesIntro: "Dekouvri domèn fòmasyon nou ofri yo.",
+        course1: "Kosmetoloji Modèn",
+        course2: "Dekorasyon Evènman",
+        course3: "Kouti Debaz",
+        course4: "Plonbri",
+        course5: "Pòz Karrelaj",
+        course6: "Anglè",
+        course7: "Dreadlocks",
+        course8: "Piercing",
+        course9: "Pyano",
+        course10: "Gita",
+        course11: "At Floral",
+        admissionTitle: "Kijan admisyon an fonksyone?",
+        admissionIntro: "Men prensipal etap pou fè demann admisyon ou.",
+        step1: "Chwazi depatman kote ou ta renmen enskri a.",
+        step2: "Chwazi youn oswa plizyè fòmasyon.",
+        step3: "Ranpli enfòmasyon pèsonèl ou epi prepare dokiman yo mande yo.",
+        step4: "Voye demann admisyon ou pou administrasyon an verifye li.",
+        ctaTitle: "Prepare avni ou depi jodi a",
+        ctaText: "Dekouvri opòtinite fòmasyon Les Vainqueurs Academy ofri.",
+        ctaButton: "Dekouvri depatman yo",
+        footerSubtitle: "Sistèm Admisyon sou Entènèt",
+        copyright: "© 2026 - Tout dwa rezève."
+      },
+      es: {
+        pageTitle: "Les Vainqueurs Academy | Admisiones en línea",
+        pageDescription: "Descubra Les Vainqueurs Academy y sus cursos profesionales. Prepare su futuro y solicite admisión en línea.",
+        navHome: "Inicio",
+        navDepartments: "Departamentos",
+        navCourses: "Cursos",
+        navAdmission: "Admisión",
+        navLabel: "Navegación principal",
+        languageLabel: "Elegir idioma",
+        heroBefore: "Construya su futuro con",
+        heroText: "Bienvenido a la plataforma de admisión en línea de Les Vainqueurs Academy. Descubra nuestros departamentos y cursos profesionales.",
+        heroButton: "Descubrir nuestros departamentos",
+        departmentTitle: "Elija su departamento",
+        departmentIntro: "Las admisiones se organizan en tres departamentos.",
+        southEast: "Departamento Sudeste",
+        west: "Departamento Oeste",
+        north: "Departamento Norte",
+        coursesTitle: "Nuestros cursos",
+        coursesIntro: "Descubra las áreas de formación que ofrecemos.",
+        course1: "Cosmetología Moderna",
+        course2: "Decoración de Eventos",
+        course3: "Costura Básica",
+        course4: "Fontanería",
+        course5: "Instalación de Azulejos",
+        course6: "Inglés",
+        course7: "Dreadlocks",
+        course8: "Piercing",
+        course9: "Piano",
+        course10: "Guitarra",
+        course11: "Arte Floral",
+        admissionTitle: "¿Cómo funciona la admisión?",
+        admissionIntro: "Los principales pasos de su solicitud.",
+        step1: "Elija el departamento en el que desea inscribirse.",
+        step2: "Seleccione uno o varios cursos.",
+        step3: "Complete su información personal y prepare los documentos solicitados.",
+        step4: "Envíe su solicitud para que la administración la revise.",
+        ctaTitle: "Prepare su futuro desde hoy",
+        ctaText: "Descubra las oportunidades de formación que ofrece Les Vainqueurs Academy.",
+        ctaButton: "Descubrir los departamentos",
+        footerSubtitle: "Sistema de Admisión en Línea",
+        copyright: "© 2026 - Todos los derechos reservados."
+      }
+    };
+
+    const languageSelect = document.getElementById("languageSelect");
+
+    function applyLanguage(language) {
+      const selected = translations[language] ? language : "fr";
+      const dictionary = translations[selected];
+
+      document.documentElement.lang = selected;
+      document.title = dictionary.pageTitle;
+
+      const description = document.querySelector('meta[name="description"]');
+      if (description) {
+        description.setAttribute("content", dictionary.pageDescription);
+      }
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+
+        if (Object.prototype.hasOwnProperty.call(dictionary, key)) {
+          element.textContent = dictionary[key];
+        }
+      });
+
+      const navigation = document.getElementById("mainNavigation");
+
+      if (navigation) {
+        navigation.setAttribute("aria-label", dictionary.navLabel);
+      }
+
+      languageSelect.value = selected;
+
+      try {
+        localStorage.setItem("lva-language", selected);
+      } catch (error) {
+        // La page fonctionne même si le stockage du navigateur est indisponible.
+      }
+    }
+
+    languageSelect.addEventListener("change", function () {
+      applyLanguage(this.value);
+    });
+
+    let savedLanguage = "fr";
+
+    try {
+      savedLanguage = localStorage.getItem("lva-language") || "fr";
+    } catch (error) {
+      savedLanguage = "fr";
+    }
+
+    applyLanguage(savedLanguage);
+  </script>
 </body>
-            </html>
+</html>
