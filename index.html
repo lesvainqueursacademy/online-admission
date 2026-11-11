@@ -905,6 +905,33 @@
   </div>
 </section>
   
+<script>
+function openApplicationForm(department) {
+  const section = document.getElementById("applicationFormSection");
+  const select = document.getElementById("appDepartment");
+
+  if (!section || !select) return;
+
+  section.classList.add("active");
+  select.value = department;
+  section.scrollIntoView({ behavior: "smooth" });
+}
+
+function closeApplicationForm() {
+  const section = document.getElementById("applicationFormSection");
+  if (!section) return;
+
+  section.classList.remove("active");
+  document.getElementById("departments").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+document.getElementById("academyApplicationForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  document.getElementById("applicationNotice").textContent =
+    "Le formulaire n'est pas encore connecté au système de réception des candidatures. Votre demande n'a pas été envoyée.";
+});
 </script>
   
 </body>
