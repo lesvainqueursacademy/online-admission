@@ -906,12 +906,18 @@
 </section>
   
 <script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const db = window.supabase.createClient(
+  "https://qxcpyvhdxzijtozqlycv.supabase.co",
+  "sb_publishable_NbDxrLQLCeUdwdZilhuptA_QJ2lxcg0"
+);
+
 function openApplicationForm(department) {
   const section = document.getElementById("applicationFormSection");
   const select = document.getElementById("appDepartment");
-
   if (!section || !select) return;
-
   section.classList.add("active");
   select.value = department;
   section.scrollIntoView({ behavior: "smooth" });
@@ -920,17 +926,85 @@ function openApplicationForm(department) {
 function closeApplicationForm() {
   const section = document.getElementById("applicationFormSection");
   if (!section) return;
-
   section.classList.remove("active");
   document.getElementById("departments").scrollIntoView({
     behavior: "smooth"
   });
 }
 
-document.getElementById("academyApplicationForm").addEventListener("submit", function(event) {
+document.getElementById("academyApplicationForm")
+.addEventListener("submit", async function(event) {
   event.preventDefault();
-  document.getElementById("applicationNotice").textContent =
-    "Le formulaire n'est pas encore connecté au système de réception des candidatures. Votre demande n'a pas été envoyée.";
+
+  const form = event.currentTarget;
+  const notice = document.getElementById("applicationNotice");
+  const button = form.querySelector('button[type="submit"]');
+
+  const files = {
+    identity: document.getElementById("appIdentity").files[0],
+    birth: document.getElementById("appBirthDocument").files[0],
+    photo: document.getElementById("appPhoto").files[0]
+  };
+
+  button.disabled = true;
+  notice.textContent = "Envoi en cours...";
+
+  const id = crypto.randomUUID();
+  const paths = {};
+
+  try {
+    for (const [key, file] of Object.entries(files)) {
+      if (!file || file.size > 5242880 ||
+          !["application/pdf", "image/jpeg", "image/png"].includes(file.type)) {
+        throw new Error("Documents invalides ou trop volumineux (5 Mo maximum).");
+      }
+
+      const ext = file.name.split(".").pop().toLowerCase();
+      const path = id + "/" + key + "." + ext;
+
+      const { error } = await db.storage
+        .from("candidate-documents")
+        .upload(path, file, { contentType: file.type });
+
+      if (error) throw error;
+      paths[key] = path;
+    }
+
+    const data = {
+      full_name: document.getElementById("appName").value,
+      phone: document.getElementById("appPhone").value,
+      email: document.getElementById("appEmail").value,
+      whatsapp: document.getElementById("appWhatsApp").value || null,
+      birth_date: document.getElementById("appBirthDate").value,
+      age: Number(document.getElementById("appAge").value),
+      gender: document.getElementById("appGender").value || null,
+      department: document.getElementById("appDepartment").value,
+      commune: document.getElementById("appCommunity").value,
+      education_level: document.getElementById("appEducation").value,
+      last_school: document.getElementById("appSchool").value || null,
+      desired_training: document.getElementById("appCourse").value,
+      availability: document.getElementById("appAvailability").value,
+      reason: document.getElementById("appReason").value,
+      other_info: document.getElementById("appMessage").value || null,
+      identity_document_path: paths.identity,
+      birth_document_path: paths.birth,
+      applicant_photo_path: paths.photo
+    };
+
+    const { error } = await db.from("applications").insert(data);
+    if (error) throw error;
+
+    notice.textContent = "Votre candidature a été reçue avec succès. Merci !";
+    notice.style.color = "green";
+    form.reset();
+
+  } catch (error) {
+    console.error(error);
+    notice.textContent = "Échec de l'envoi : " + error.message;
+    notice.style.color = "red";
+  }
+
+  button.disabled = false;
 });
 </script>
   
