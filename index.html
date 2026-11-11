@@ -656,5 +656,205 @@
 
     applyLanguage(savedLanguage);
   </script>
+  
+<style>
+  #applicationFormSection {
+    display: none;
+    background: #F7F7F7;
+    padding: 65px 20px;
+  }
+  #applicationFormSection.active { display: block; }
+  .application-box {
+    max-width: 750px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    border-top: 5px solid #D4AF37;
+    box-shadow: 0 5px 25px #00000010;
+  }
+  .application-box h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #111;
+  }
+  .application-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 17px;
+  }
+  .application-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .application-field.full { grid-column: 1 / -1; }
+  .application-field label {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .application-field input,
+  .application-field select,
+  .application-field textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    font: inherit;
+  }
+  .application-field textarea { min-height: 100px; }
+  .application-submit {
+    background: #D4AF37;
+    color: #111;
+    border: 0;
+    padding: 14px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 22px;
+  }
+  .application-close {
+    display: block;
+    margin: 0 auto 20px;
+    background: transparent;
+    border: 0;
+    color: #666;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  .department { cursor: pointer; }
+  .department:focus-visible {
+    outline: 3px solid #D4AF37;
+    outline-offset: 4px;
+  }
+  @media(max-width:600px) {
+    .application-grid { grid-template-columns: 1fr; }
+    .application-box { padding: 20px; }
+  }
+</style>
+
+<section id="applicationFormSection">
+  <div class="application-box">
+    <button type="button" class="application-close"
+      onclick="closeApplicationForm()">✕ Fermer</button>
+
+    <h2>Formulaire de demande d'admission</h2>
+
+    <form id="academyApplicationForm">
+      <div class="application-grid">
+
+        <div class="application-field">
+          <label for="appName">Nom et prénom *</label>
+          <input id="appName" name="name" required>
+        </div>
+
+        <div class="application-field">
+          <label for="appPhone">Téléphone *</label>
+          <input id="appPhone" name="phone" type="tel" required>
+        </div>
+
+        <div class="application-field">
+          <label for="appEmail">Adresse e-mail</label>
+          <input id="appEmail" name="email" type="email">
+        </div>
+
+        <div class="application-field">
+          <label for="appAge">Âge *</label>
+          <input id="appAge" name="age" type="number" min="10" max="100" required>
+        </div>
+
+        <div class="application-field">
+          <label for="appDepartment">Département *</label>
+          <select id="appDepartment" name="department" required>
+            <option value="">Choisir un département</option>
+            <option value="Sud-Est">Sud-Est</option>
+            <option value="Ouest">Ouest</option>
+            <option value="Nord">Nord</option>
+          </select>
+        </div>
+
+        <div class="application-field">
+          <label for="appCommunity">Commune de résidence *</label>
+          <input id="appCommunity" name="community" required>
+        </div>
+
+        <div class="application-field full">
+          <label for="appCourse">Formation souhaitée *</label>
+          <select id="appCourse" name="course" required>
+            <option value="">Choisir une formation</option>
+            <option>Cosmétologie Moderne</option>
+            <option>Décoration Événementielle</option>
+            <option>Couture de Base</option>
+            <option>Plomberie</option>
+            <option>Carrelage</option>
+            <option>Anglais</option>
+            <option>Dreadlocks</option>
+            <option>Piercing</option>
+            <option>Piano</option>
+            <option>Guitare</option>
+            <option>Art Floral</option>
+          </select>
+        </div>
+
+        <div class="application-field full">
+          <label for="appMessage">Autres informations</label>
+          <textarea id="appMessage" name="message"
+            placeholder="Écrivez ici vos informations complémentaires..."></textarea>
+        </div>
+      </div>
+
+      <button class="application-submit" type="submit">
+        Soumettre ma demande
+      </button>
+
+      <p id="applicationNotice" role="status"
+        style="margin-top:15px;text-align:center;"></p>
+    </form>
+  </div>
+</section>
+
+<script>
+(function () {
+  const formSection = document.getElementById("applicationFormSection");
+  const departmentSelect = document.getElementById("appDepartment");
+
+  document.querySelectorAll(".department").forEach(function(card) {
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-label", "Choisir ce département");
+
+    function chooseDepartment() {
+      const name = card.querySelector("h3").textContent.trim();
+      departmentSelect.value = name;
+      formSection.classList.add("active");
+      formSection.scrollIntoView({ behavior: "smooth" });
+    }
+
+    card.addEventListener("click", chooseDepartment);
+    card.addEventListener("keydown", function(event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        chooseDepartment();
+      }
+    });
+  });
+
+  window.closeApplicationForm = function() {
+    formSection.classList.remove("active");
+    document.getElementById("departments").scrollIntoView({
+      behavior: "smooth"
+    });
+  };
+
+  document.getElementById("academyApplicationForm")
+    .addEventListener("submit", function(event) {
+      event.preventDefault();
+      document.getElementById("applicationNotice").textContent =
+        "Le formulaire est prêt, mais le système de réception des candidatures doit encore être connecté. Votre demande n'a pas été envoyée.";
+    });
+})();
+</script>
+  
 </body>
 </html>
