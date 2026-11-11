@@ -296,6 +296,45 @@
       html { scroll-behavior: auto; }
       *, *::before, *::after { transition-duration: 0.01ms !important; }
     }
+    
+/* Logo ak non lekòl la */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #d4af37;
+  font-size: 25px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.brand img {
+  height: 65px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+.brand span {
+  display: block;
+}
+
+/* Adaptasyon pou telefòn */
+@media (max-width: 600px) {
+  .brand {
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .brand img {
+    height: 48px;
+    max-width: 110px;
+  }
+}
+    
   </style>
 </head>
 
