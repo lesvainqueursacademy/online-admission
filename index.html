@@ -346,21 +346,25 @@
           <p data-i18n="departmentIntro">Les admissions sont organisées dans trois départements.</p>
         </div>
         <div class="departments">
-          <article class="department">
-            <div class="number">01</div>
-            <h3>Sud-Est</h3>
-            <p data-i18n="southEast">Département Sud-Est</p>
-          </article>
-          <article class="department">
-            <div class="number">02</div>
-            <h3>Ouest</h3>
-            <p data-i18n="west">Département Ouest</p>
-          </article>
-          <article class="department">
-            <div class="number">03</div>
-            <h3>Nord</h3>
-            <p data-i18n="north">Département Nord</p>
-          </article>
+          
+<article class="department" onclick="openApplicationForm('Sud-Est')" style="cursor:pointer;">
+  <div class="number">01</div>
+  <h3>Sud-Est</h3>
+  <p data-i18n="southEast">Département Sud-Est</p>
+</article>
+
+<article class="department" onclick="openApplicationForm('Ouest')" style="cursor:pointer;">
+  <div class="number">02</div>
+  <h3>Ouest</h3>
+  <p data-i18n="west">Département Ouest</p>
+</article>
+
+<article class="department" onclick="openApplicationForm('Nord')" style="cursor:pointer;">
+  <div class="number">03</div>
+  <h3>Nord</h3>
+  <p data-i18n="north">Département Nord</p>
+</article>
+          
         </div>
       </div>
     </section>
