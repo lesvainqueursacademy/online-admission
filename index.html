@@ -755,13 +755,34 @@
         </div>
 
         <div class="application-field">
-          <label for="appEmail">Adresse e-mail</label>
-          <input id="appEmail" name="email" type="email">
+          <label for="appEmail">Adresse e-mail *</label>
+          <input id="appEmail" name="email" type="email" required>
+        </div>
+
+        <div class="application-field">
+          <label for="appWhatsApp">WhatsApp</label>
+          <input id="appWhatsApp" name="whatsapp" type="tel">
+        </div>
+
+        <div class="application-field">
+          <label for="appBirthDate">Date de naissance *</label>
+          <input id="appBirthDate" name="birthDate" type="date" required>
         </div>
 
         <div class="application-field">
           <label for="appAge">Âge *</label>
           <input id="appAge" name="age" type="number" min="10" max="100" required>
+        </div>
+
+        <div class="application-field">
+          <label for="appGender">Sexe</label>
+          <select id="appGender" name="gender">
+            <option value="">Choisir</option>
+            <option value="F">Féminin</option>
+            <option value="M">Masculin</option>
+            <option value="Other">Autre</option>
+            <option value="Prefer not to say">Préfère ne pas répondre</option>
+          </select>
         </div>
 
         <div class="application-field">
@@ -777,6 +798,23 @@
         <div class="application-field">
           <label for="appCommunity">Commune de résidence *</label>
           <input id="appCommunity" name="community" required>
+        </div>
+
+        <div class="application-field">
+          <label for="appEducation">Niveau d'études *</label>
+          <select id="appEducation" name="education" required>
+            <option value="">Choisir</option>
+            <option>Primaire</option>
+            <option>Secondaire</option>
+            <option>Universitaire</option>
+            <option>Formation professionnelle</option>
+            <option>Autre</option>
+          </select>
+        </div>
+
+        <div class="application-field full">
+          <label for="appSchool">Dernier établissement fréquenté</label>
+          <input id="appSchool" name="lastSchool">
         </div>
 
         <div class="application-field full">
@@ -798,10 +836,59 @@
         </div>
 
         <div class="application-field full">
+          <label for="appAvailability">Disponibilité *</label>
+          <select id="appAvailability" name="availability" required>
+            <option value="">Choisir</option>
+            <option>Matin</option>
+            <option>Après-midi</option>
+            <option>Soir</option>
+            <option>Week-end</option>
+            <option>Flexible</option>
+          </select>
+        </div>
+
+        <div class="application-field full">
+          <label for="appReason">Pourquoi souhaitez-vous intégrer l'Académie ? *</label>
+          <textarea id="appReason" name="reason" required></textarea>
+        </div>
+
+        <div class="application-field full">
           <label for="appMessage">Autres informations</label>
           <textarea id="appMessage" name="message"
-            placeholder="Écrivez ici vos informations complémentaires..."></textarea>
+            placeholder="Informations complémentaires..."></textarea>
         </div>
+
+        <div class="application-field full">
+          <h3>Documents obligatoires</h3>
+          <p>Formats acceptés : PDF, JPG et PNG.</p>
+        </div>
+
+        <div class="application-field full">
+          <label for="appIdentity">Passeport, carte d'identification ou permis de conduire *</label>
+          <input id="appIdentity" name="identityDocument"
+            type="file" accept=".pdf,.jpg,.jpeg,.png" required>
+        </div>
+
+        <div class="application-field full">
+          <label for="appBirthDocument">Extrait des archives ou acte de naissance *</label>
+          <input id="appBirthDocument" name="birthDocument"
+            type="file" accept=".pdf,.jpg,.jpeg,.png" required>
+        </div>
+
+        <div class="application-field full">
+          <label for="appPhoto">Photo du candidat *</label>
+          <input id="appPhoto" name="photo"
+            type="file" accept=".jpg,.jpeg,.png" required>
+        </div>
+
+        <div class="application-field full">
+          <label>
+            <input type="checkbox" name="truthDeclaration"
+              required style="width:auto;">
+            Je certifie que les informations fournies sont exactes. *
+          </label>
+        </div>
+
       </div>
 
       <button class="application-submit" type="submit">
@@ -813,47 +900,7 @@
     </form>
   </div>
 </section>
-
-<script>
-(function () {
-  const formSection = document.getElementById("applicationFormSection");
-  const departmentSelect = document.getElementById("appDepartment");
-
-  document.querySelectorAll(".department").forEach(function(card) {
-    card.setAttribute("role", "button");
-    card.setAttribute("tabindex", "0");
-    card.setAttribute("aria-label", "Choisir ce département");
-
-    function chooseDepartment() {
-      const name = card.querySelector("h3").textContent.trim();
-      departmentSelect.value = name;
-      formSection.classList.add("active");
-      formSection.scrollIntoView({ behavior: "smooth" });
-    }
-
-    card.addEventListener("click", chooseDepartment);
-    card.addEventListener("keydown", function(event) {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        chooseDepartment();
-      }
-    });
-  });
-
-  window.closeApplicationForm = function() {
-    formSection.classList.remove("active");
-    document.getElementById("departments").scrollIntoView({
-      behavior: "smooth"
-    });
-  };
-
-  document.getElementById("academyApplicationForm")
-    .addEventListener("submit", function(event) {
-      event.preventDefault();
-      document.getElementById("applicationNotice").textContent =
-        "Le formulaire est prêt, mais le système de réception des candidatures doit encore être connecté. Votre demande n'a pas été envoyée.";
-    });
-})();
+  
 </script>
   
 </body>
