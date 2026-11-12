@@ -238,13 +238,6 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
     $('new-password-form').classList.remove('hidden');
   }
 });
-  if (event === 'PASSWORD_RECOVERY') {
-    $('login-form').classList.add('hidden');
-    $('forgot-password-button').classList.add('hidden');
-    $('reset-request-form').classList.add('hidden');
-    $('new-password-form').classList.remove('hidden');
-  }
-});
 
 $('new-password-form').addEventListener('submit', async (event) => {
   event.preventDefault();
