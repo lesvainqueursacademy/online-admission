@@ -24,9 +24,31 @@
         <button id="login-button" type="submit">Se connecter</button>
         <p id="login-message" class="message" role="status" aria-live="polite"></p>
       </form>
+      <button id="forgot-password-button" class="text-button" type="button">Mot de passe oublié ?</button>
+      <section id="reset-request-view" class="reset-panel hidden">
+        <h2>Réinitialiser le mot de passe</h2>
+        <p class="card-help">Entrez l'adresse e-mail de votre compte administrateur. Supabase vous enverra un lien sécurisé.</p>
+        <form id="reset-request-form">
+          <label for="reset-email">Adresse e-mail</label>
+          <input id="reset-email" name="reset-email" type="email" autocomplete="email" required>
+          <button id="reset-request-button" type="submit">Envoyer le lien</button>
+          <p id="reset-request-message" class="message" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+      <section id="new-password-view" class="reset-panel hidden">
+        <h2>Créer un nouveau mot de passe</h2>
+        <p class="card-help">Choisissez un mot de passe d'au moins 8 caractères.</p>
+        <form id="new-password-form">
+          <label for="new-password">Nouveau mot de passe</label>
+          <input id="new-password" type="password" autocomplete="new-password" minlength="8" required>
+          <label for="confirm-password">Confirmer le mot de passe</label>
+          <input id="confirm-password" type="password" autocomplete="new-password" minlength="8" required>
+          <button id="new-password-button" type="submit">Enregistrer le nouveau mot de passe</button>
+          <p id="new-password-message" class="message" role="status" aria-live="polite"></p>
+        </form>
+      </section>
       <p class="security-note">Accès réservé au personnel autorisé.</p>
     </section>
-
     <section id="dashboard-view" class="dashboard hidden">
       <header class="topbar">
         <div>
