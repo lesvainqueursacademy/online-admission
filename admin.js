@@ -212,7 +212,7 @@ $('reset-request-form').addEventListener('submit', async (event) => {
 
   try {
     const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/admin.html?mode=reset`
+      redirectTo: 'https://online-admission-b7s.pages.dev/admin.html?mode=reset'
     });
 
     if (error) throw error;
