@@ -277,7 +277,118 @@ $('new-password-form').addEventListener('submit', async (event) => {
     $('save-password-button').disabled = false;
   }
 });
+async function loadCandidates() {
+  const body = $('candidates-list');
+  const message = $('candidates-message');
 
+  body.innerHTML = '<tr><td colspan="6">Chargement...</td></tr>';
+
+  try {
+    const { data, error } = await supabaseClient
+      .from('applications')
+      .select('id, full_name, phone, email, department, commune, desired_training, status, birth_date, age, gender, education_level, last_school, availability, reason, other_info, whatsapp, created_at')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    window.allCandidates = data || [];
+    displayCandidates();
+
+    message.textContent = window.allCandidates.length + ' candidature(s) trouvée(s).';
+
+  } catch (error) {
+    body.innerHTML = '<tr><td colspan="6">Erreur de chargement.</td></tr>';
+    message.textContent = error.message;
+  }
+}
+
+function displayCandidates() {
+  const body = $('candidates-list');
+  const search = $('candidate-search').value.toLowerCase().trim();
+  const department = $('candidate-department').value;
+  const status = $('candidate-status').value;
+
+  body.replaceChildren();
+
+  const filtered = (window.allCandidates || []).filter(candidate => {
+    const matchesSearch =
+      (candidate.full_name || '').toLowerCase().includes(search) ||
+      (candidate.phone || '').toLowerCase().includes(search);
+
+    return matchesSearch &&
+      (!department || candidate.department === department) &&
+      (!status || candidate.status === status);
+  });
+
+  filtered.forEach(candidate => {
+    const row = document.createElement('tr');
+
+    [
+      candidate.full_name,
+      candidate.phone,
+      candidate.department,
+      candidate.desired_training,
+      candidate.status
+    ].forEach(value => {
+      const cell = document.createElement('td');
+      cell.textContent = value || '—';
+      row.appendChild(cell);
+    });
+
+    const actionCell = document.createElement('td');
+    const button = document.createElement('button');
+
+    button.textContent = 'Voir détails';
+    button.type = 'button';
+
+    button.addEventListener('click', () => {
+      showCandidateDetails(candidate);
+    });
+
+    actionCell.appendChild(button);
+    row.appendChild(actionCell);
+    body.appendChild(row);
+  });
+
+  if (!filtered.length) {
+    const row = document.createElement('tr');
+    const cell = document.createElement('td');
+    cell.colSpan = 6;
+    cell.textContent = 'Aucun candidat trouvé.';
+    row.appendChild(cell);
+    body.appendChild(row);
+  }
+
+  $('candidates-message').textContent =
+    filtered.length + ' candidature(s) affichée(s).';
+}
+
+function showCandidateDetails(candidate) {
+  const details = [
+    'Nom : ' + (candidate.full_name || '—'),
+    'Téléphone : ' + (candidate.phone || '—'),
+    'WhatsApp : ' + (candidate.whatsapp || '—'),
+    'Email : ' + (candidate.email || '—'),
+    'Département : ' + (candidate.department || '—'),
+    'Commune : ' + (candidate.commune || '—'),
+    'Formation : ' + (candidate.desired_training || '—'),
+    'Date de naissance : ' + (candidate.birth_date || '—'),
+    'Âge : ' + (candidate.age || '—'),
+    'Genre : ' + (candidate.gender || '—'),
+    'Niveau scolaire : ' + (candidate.education_level || '—'),
+    'Dernière école : ' + (candidate.last_school || '—'),
+    'Disponibilité : ' + (candidate.availability || '—'),
+    'Motivation : ' + (candidate.reason || '—'),
+    'Autres informations : ' + (candidate.other_info || '—'),
+    'Statut : ' + (candidate.status || '—')
+  ];
+
+  alert(details.join('\n'));
+}
+
+$('candidate-search').addEventListener('input', displayCandidates);
+$('candidate-department').addEventListener('change', displayCandidates);
+$('candidate-status').addEventListener('change', displayCandidates);
 async function restoreSession() {
   const isRecovery =
     window.location.hash.includes('type=recovery') ||
