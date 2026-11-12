@@ -305,7 +305,6 @@ async function restoreSession() {
     showLogin(error.message);
   }
 }
-}
 
 restoreSession();
                               
