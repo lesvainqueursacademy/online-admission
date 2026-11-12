@@ -276,6 +276,22 @@ $('new-password-form').addEventListener('submit', async (event) => {
 });
 
 async function restoreSession() {
+  const isRecovery =
+    window.location.hash.includes('type=recovery') ||
+    new URLSearchParams(window.location.search).get('mode') === 'reset';
+
+  if (isRecovery) {
+    loginView.classList.remove('hidden');
+    dashboardView.classList.add('hidden');
+
+    $('login-form').classList.add('hidden');
+    $('forgot-password-button').classList.add('hidden');
+    $('reset-request-form').classList.add('hidden');
+    $('new-password-form').classList.remove('hidden');
+
+    return;
+  }
+
   const { data, error } = await supabaseClient.auth.getSession();
 
   if (error || !data.session) return;
@@ -285,6 +301,7 @@ async function restoreSession() {
   } catch (error) {
     showLogin(error.message);
   }
+}
 }
 
 restoreSession();
