@@ -227,7 +227,17 @@ $('reset-request-form').addEventListener('submit', async (event) => {
   }
 });
 
-supabaseClient.auth.onAuthStateChange((event) => {
+supabaseClient.auth.onAuthStateChange((event, session) => {
+  if (event === 'PASSWORD_RECOVERY' && session) {
+    loginView.classList.remove('hidden');
+    dashboardView.classList.add('hidden');
+
+    $('login-form').classList.add('hidden');
+    $('forgot-password-button').classList.add('hidden');
+    $('reset-request-form').classList.add('hidden');
+    $('new-password-form').classList.remove('hidden');
+  }
+});
   if (event === 'PASSWORD_RECOVERY') {
     $('login-form').classList.add('hidden');
     $('forgot-password-button').classList.add('hidden');
