@@ -24,31 +24,26 @@
         <button id="login-button" type="submit">Se connecter</button>
         <p id="login-message" class="message" role="status" aria-live="polite"></p>
       </form>
-      <button id="forgot-password-button" class="text-button" type="button">Mot de passe oublié ?</button>
-      <section id="reset-request-view" class="reset-panel hidden">
-        <h2>Réinitialiser le mot de passe</h2>
-        <p class="card-help">Entrez l'adresse e-mail de votre compte administrateur. Supabase vous enverra un lien sécurisé.</p>
-        <form id="reset-request-form">
-          <label for="reset-email">Adresse e-mail</label>
-          <input id="reset-email" name="reset-email" type="email" autocomplete="email" required>
-          <button id="reset-request-button" type="submit">Envoyer le lien</button>
-          <p id="reset-request-message" class="message" role="status" aria-live="polite"></p>
-        </form>
-      </section>
-      <section id="new-password-view" class="reset-panel hidden">
-        <h2>Créer un nouveau mot de passe</h2>
-        <p class="card-help">Choisissez un mot de passe d'au moins 8 caractères.</p>
-        <form id="new-password-form">
-          <label for="new-password">Nouveau mot de passe</label>
-          <input id="new-password" type="password" autocomplete="new-password" minlength="8" required>
-          <label for="confirm-password">Confirmer le mot de passe</label>
-          <input id="confirm-password" type="password" autocomplete="new-password" minlength="8" required>
-          <button id="new-password-button" type="submit">Enregistrer le nouveau mot de passe</button>
-          <p id="new-password-message" class="message" role="status" aria-live="polite"></p>
-        </form>
-      </section>
+
+      <button id="forgot-password-button" class="link-button" type="button">Mot de passe oublié ?</button>
+      <form id="reset-request-form" class="hidden">
+        <label for="reset-email">Adresse e-mail du compte</label>
+        <input id="reset-email" type="email" autocomplete="email">
+        <button id="reset-request-button" type="submit">Envoyer le lien de réinitialisation</button>
+        <p id="reset-request-message" class="message" role="status" aria-live="polite"></p>
+      </form>
+
+      <form id="new-password-form" class="hidden">
+        <label for="new-password">Nouveau mot de passe</label>
+        <input id="new-password" type="password" minlength="8" autocomplete="new-password">
+        <label for="confirm-password">Confirmer le mot de passe</label>
+        <input id="confirm-password" type="password" minlength="8" autocomplete="new-password">
+        <button id="save-password-button" type="submit">Enregistrer le nouveau mot de passe</button>
+        <p id="new-password-message" class="message" role="status" aria-live="polite"></p>
+      </form>
       <p class="security-note">Accès réservé au personnel autorisé.</p>
     </section>
+
     <section id="dashboard-view" class="dashboard hidden">
       <header class="topbar">
         <div>
@@ -58,31 +53,81 @@
         </div>
         <button id="logout-button" class="button-secondary" type="button">Déconnexion</button>
       </header>
+
       <div class="welcome-panel">
         <div>
           <p class="eyebrow">ESPACE ADMINISTRATEUR</p>
           <h2>Bienvenue dans votre administration</h2>
-          <p>Votre connexion Super Administrateur est vérifiée.</p>
+          <p>Suivez les candidatures et les départements de l'académie.</p>
         </div>
         <span class="role-chip">SUPER ADMIN</span>
       </div>
-      <div class="info-grid">
+
+      <div class="section-heading">
+        <div>
+          <h2>Vue d'ensemble</h2>
+          <p>Statistiques actualisées depuis Supabase.</p>
+        </div>
+        <button id="refresh-button" class="button-secondary" type="button">Actualiser</button>
+      </div>
+
+      <div class="stats-grid">
         <article class="info-card">
-          <span class="card-label">Départements configurés</span>
-          <strong id="department-count">—</strong>
-          <span class="card-help">Sud-Est · Ouest · Nord</span>
+          <span class="card-label">Total des candidatures</span>
+          <strong id="total-count">—</strong>
+          <span class="card-help">Tous les dossiers reçus</span>
         </article>
         <article class="info-card">
-          <span class="card-label">Votre rôle</span>
-          <strong class="role-value">Super Admin</strong>
-          <span class="card-help">Accès administrateur confirmé</span>
+          <span class="card-label">Nouvelles candidatures</span>
+          <strong id="new-count">—</strong>
+          <span class="card-help">En attente de traitement</span>
+        </article>
+        <article class="info-card">
+          <span class="card-label">En cours</span>
+          <strong id="progress-count">—</strong>
+          <span class="card-help">Dossiers en traitement</span>
+        </article>
+        <article class="info-card">
+          <span class="card-label">Admis</span>
+          <strong id="admitted-count">—</strong>
+          <span class="card-help">Décisions positives</span>
         </article>
       </div>
-      <div class="notice">
-        <strong>Prochaine étape</strong>
-        <p>Les modules de consultation des candidatures et des documents seront activés après la configuration de leurs règles d’accès sécurisées dans Supabase.</p>
+
+      <div class="content-grid">
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Candidatures par département</h2>
+          </div>
+          <div id="department-stats" class="department-list">
+            <p class="muted">Chargement...</p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Dernières candidatures</h2>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Département</th>
+                  <th>Formation</th>
+                  <th>Statut</th>
+                </tr>
+              </thead>
+              <tbody id="recent-applications">
+                <tr><td colspan="4">Chargement...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </div>
+
       <p id="dashboard-message" class="message" role="status" aria-live="polite"></p>
+      <p class="updated-at">Dernière actualisation : <span id="updated-at">—</span></p>
     </section>
   </main>
   <footer>© <span id="year"></span> Les Vainqueurs Academy</footer>
