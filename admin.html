@@ -125,7 +125,51 @@
           </div>
         </section>
       </div>
+<section class="panel">
+  <div class="panel-heading">
+    <h2>Gestion des candidatures</h2>
+  </div>
 
+  <div class="candidate-tools">
+    <input id="candidate-search" type="search"
+      placeholder="Rechercher un candidat...">
+
+    <select id="candidate-department">
+      <option value="">Tous les départements</option>
+      <option value="Sud-Est">Sud-Est</option>
+      <option value="Ouest">Ouest</option>
+      <option value="Nord">Nord</option>
+    </select>
+
+    <select id="candidate-status">
+      <option value="">Tous les statuts</option>
+      <option value="Nouvelle candidature">Nouvelle candidature</option>
+      <option value="En cours">En cours</option>
+      <option value="Admis">Admis</option>
+      <option value="Rejeté">Rejeté</option>
+    </select>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Téléphone</th>
+          <th>Département</th>
+          <th>Formation</th>
+          <th>Statut</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="candidates-list">
+        <tr><td colspan="6">Chargement...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p id="candidates-message" class="message"></p>
+</section>
       <p id="dashboard-message" class="message" role="status" aria-live="polite"></p>
       <p class="updated-at">Dernière actualisation : <span id="updated-at">—</span></p>
     </section>
