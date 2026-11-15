@@ -42,6 +42,7 @@ async function verifyAdministrator(user) {
 
   showDashboard(user);
   await loadDashboard();
+  await loadCandidates();
 }
 
 async function loadDashboard() {
