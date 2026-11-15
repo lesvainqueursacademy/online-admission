@@ -190,7 +190,10 @@ $('logout-button').addEventListener('click', async () => {
   showLogin('Vous êtes déconnecté.');
 });
 
-$('refresh-button').addEventListener('click', loadDashboard);
+$('refresh-button').addEventListener('click', async () => {
+  await loadDashboard();
+  await loadCandidates();
+});
 
 $('forgot-password-button').addEventListener('click', () => {
   $('reset-request-form').classList.toggle('hidden');
