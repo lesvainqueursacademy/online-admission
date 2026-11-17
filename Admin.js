@@ -300,30 +300,49 @@ $('new-password-form').addEventListener('submit', async (event) => {
     $('save-password-button').disabled = false;
   }
 });
+
 async function loadCandidates() {
   const body = $('candidates-list');
   const message = $('candidates-message');
 
-  body.innerHTML = '<tr><td colspan="6">Chargement...</td></tr>';
+  body.innerHTML =
+    '<tr><td colspan="6">Connexion à la base de données...</td></tr>';
+
+  message.textContent = 'Recherche des candidatures...';
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 15000);
 
   try {
     const { data, error } = await supabaseClient
       .from('applications')
       .select('id, full_name, phone, email, department, commune, desired_training, status, birth_date, age, gender, education_level, last_school, availability, reason, other_info, whatsapp, created_at')
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
+      .limit(200)
+      .abortSignal(controller.signal);
 
     if (error) throw error;
 
     window.allCandidates = data || [];
+
     displayCandidates();
 
-    message.textContent = window.allCandidates.length + ' candidature(s) trouvée(s).';
+    message.textContent =
+      window.allCandidates.length + ' candidature(s) trouvée(s).';
 
   } catch (error) {
-    body.innerHTML = '<tr><td colspan="6">Erreur de chargement.</td></tr>';
-    message.textContent = error.message;
+    body.innerHTML =
+      '<tr><td colspan="6">Erreur de chargement.</td></tr>';
+
+    message.textContent = error.name === 'AbortError'
+      ? 'Délai dépassé : la base de données ne répond pas.'
+      : 'Erreur Supabase : ' + error.message;
+
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
+
 
 function displayCandidates() {
   const body = $('candidates-list');
