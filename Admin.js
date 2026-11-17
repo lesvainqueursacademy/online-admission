@@ -63,24 +63,6 @@ async function verifyAdministrator(user) {
     }
   });
 }
- {
-  const { data, error } = await supabaseClient
-    .from('profiles')
-    .select('role')
-    .eq('id', user.id)
-    .maybeSingle();
-
-  if (error) throw error;
-
-  if (!data || data.role !== 'super_admin') {
-    await supabaseClient.auth.signOut();
-    throw new Error('Accès réservé au Super Administrateur.');
-  }
-
-  showDashboard(user);
-  await loadDashboard();
-  await loadCandidates();
-}
 
 async function loadDashboard() {
   $('dashboard-message').textContent = 'Chargement...';
