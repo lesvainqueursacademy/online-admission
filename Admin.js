@@ -406,28 +406,186 @@ function displayCandidates() {
     filtered.length + ' candidature(s) affichée(s).';
 }
 
-function showCandidateDetails(candidate) {
-  const details = [
-    'Nom : ' + (candidate.full_name || '—'),
-    'Téléphone : ' + (candidate.phone || '—'),
-    'WhatsApp : ' + (candidate.whatsapp || '—'),
-    'Email : ' + (candidate.email || '—'),
-    'Département : ' + (candidate.department || '—'),
-    'Commune : ' + (candidate.commune || '—'),
-    'Formation : ' + (candidate.desired_training || '—'),
-    'Date de naissance : ' + (candidate.birth_date || '—'),
-    'Âge : ' + (candidate.age || '—'),
-    'Genre : ' + (candidate.gender || '—'),
-    'Niveau scolaire : ' + (candidate.education_level || '—'),
-    'Dernière école : ' + (candidate.last_school || '—'),
-    'Disponibilité : ' + (candidate.availability || '—'),
-    'Motivation : ' + (candidate.reason || '—'),
-    'Autres informations : ' + (candidate.other_info || '—'),
-    'Statut : ' + (candidate.status || '—')
+
+async function showCandidateDetails(candidate) {
+  // Retire ansyen fenèt detay la si li egziste
+  document.getElementById('candidate-details-modal')?.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'candidate-details-modal';
+
+  Object.assign(modal.style, {
+    position: 'fixed',
+    inset: '0',
+    background: 'rgba(0,0,0,0.75)',
+    zIndex: '99999',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '15px',
+    overflowY: 'auto'
+  });
+
+  const panel = document.createElement('div');
+
+  Object.assign(panel.style, {
+    background: '#fff',
+    color: '#222',
+    width: '100%',
+    maxWidth: '650px',
+    maxHeight: '90vh',
+    overflowY: 'auto',
+    padding: '22px',
+    borderRadius: '12px'
+  });
+
+  const title = document.createElement('h2');
+  title.textContent = 'Dossier du candidat';
+  panel.appendChild(title);
+
+  const close = document.createElement('button');
+  close.textContent = 'Fermer ✕';
+  close.type = 'button';
+  close.style.cssText =
+    'float:right;padding:10px 15px;cursor:pointer;';
+
+  close.addEventListener('click', () => modal.remove());
+  panel.appendChild(close);
+
+  const photoTitle = document.createElement('h3');
+  photoTitle.textContent = 'Photo du candidat';
+  panel.appendChild(photoTitle);
+
+  const photoContainer = document.createElement('div');
+  photoContainer.textContent = 'Chargement de la photo...';
+  panel.appendChild(photoContainer);
+
+  const fields = [
+    ['Nom complet', candidate.full_name],
+    ['Téléphone', candidate.phone],
+    ['WhatsApp', candidate.whatsapp],
+    ['Email', candidate.email],
+    ['Département', candidate.department],
+    ['Commune', candidate.commune],
+    ['Formation', candidate.desired_training],
+    ['Date de naissance', candidate.birth_date],
+    ['Âge', candidate.age],
+    ['Genre', candidate.gender],
+    ['Niveau scolaire', candidate.education_level],
+    ['Dernière école', candidate.last_school],
+    ['Disponibilité', candidate.availability],
+    ['Motivation', candidate.reason],
+    ['Autres informations', candidate.other_info],
+    ['Statut', candidate.status]
   ];
 
-  alert(details.join('\n'));
+  const infoTitle = document.createElement('h3');
+  infoTitle.textContent = 'Informations personnelles';
+  panel.appendChild(infoTitle);
+
+  fields.forEach(([label, value]) => {
+    const line = document.createElement('p');
+    const strong = document.createElement('strong');
+    strong.textContent = label + ' : ';
+
+    line.appendChild(strong);
+    line.appendChild(
+      document.createTextNode(value || 'Non renseigné')
+    );
+
+    panel.appendChild(line);
+  });
+
+  const docsTitle = document.createElement('h3');
+  docsTitle.textContent = 'Documents du candidat';
+  panel.appendChild(docsTitle);
+
+  const documents = [
+    ['Document d’identité', candidate.identity_document_path],
+    ['Acte de naissance', candidate.birth_document_path]
+  ];
+
+  const documentContainer = document.createElement('div');
+  panel.appendChild(documentContainer);
+
+  modal.appendChild(panel);
+  document.body.appendChild(modal);
+
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) modal.remove();
+  });
+
+  async function getSecureUrl(path) {
+    if (!path) return null;
+
+    const { data, error } = await supabaseClient
+      .storage
+      .from('candidate-documents')
+      .createSignedUrl(path, 300);
+
+    if (error) throw error;
+
+    return data.signedUrl;
+  }
+
+  try {
+    if (candidate.applicant_photo_path) {
+      const photoUrl = await getSecureUrl(
+        candidate.applicant_photo_path
+      );
+
+      const photo = document.createElement('img');
+      photo.src = photoUrl;
+      photo.alt = 'Photo du candidat';
+
+      photo.style.cssText =
+        'width:150px;height:170px;object-fit:cover;' +
+        'border-radius:8px;margin:10px 0;';
+
+      photoContainer.replaceChildren(photo);
+    } else {
+      photoContainer.textContent = 'Aucune photo disponible.';
+    }
+  } catch (error) {
+    photoContainer.textContent = 'Photo indisponible : ' + error.message;
+  }
+
+  for (const [label, path] of documents) {
+    const line = document.createElement('p');
+    const strong = document.createElement('strong');
+    strong.textContent = label + ' : ';
+    line.appendChild(strong);
+
+    if (!path) {
+      line.appendChild(
+        document.createTextNode('Document non fourni.')
+      );
+    } else {
+      const link = document.createElement('span');
+      link.textContent = 'Chargement...';
+      line.appendChild(link);
+
+      try {
+        const url = await getSecureUrl(path);
+        const button = document.createElement('a');
+
+        button.href = url;
+        button.target = '_blank';
+        button.rel = 'noopener noreferrer';
+        button.textContent = 'Ouvrir le document';
+        button.style.cssText =
+          'color:#145da0;font-weight:bold;';
+
+        link.replaceWith(button);
+      } catch (error) {
+        link.textContent = 'Indisponible : ' + error.message;
+      }
+    }
+
+    documentContainer.appendChild(line);
+  }
 }
+
 
 $('candidate-search').addEventListener('input', displayCandidates);
 $('candidate-department').addEventListener('change', displayCandidates);
