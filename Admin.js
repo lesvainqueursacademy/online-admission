@@ -26,7 +26,44 @@ function showDashboard(user) {
   $('admin-email').textContent = user.email || '';
 }
 
+
 async function verifyAdministrator(user) {
+  const { data, error } = await supabaseClient
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (error) throw error;
+
+  if (!data || data.role !== 'super_admin') {
+    await supabaseClient.auth.signOut();
+    throw new Error('Accès réservé au Super Administrateur.');
+  }
+
+  showDashboard(user);
+
+  // Charger le tableau de bord et les candidatures indépendamment
+  const results = await Promise.allSettled([
+    loadDashboard(),
+    loadCandidates()
+  ]);
+
+  results.forEach((result, index) => {
+    if (result.status === 'rejected') {
+      const message = result.reason?.message || 'Erreur inconnue';
+
+      if (index === 0) {
+        $('dashboard-message').textContent =
+          'Erreur Dashboard : ' + message;
+      } else {
+        $('candidates-message').textContent =
+          'Erreur Candidatures : ' + message;
+      }
+    }
+  });
+}
+ {
   const { data, error } = await supabaseClient
     .from('profiles')
     .select('role')
