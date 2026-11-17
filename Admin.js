@@ -8,6 +8,7 @@ const supabaseClient = window.supabase.createClient(
 );
 
 const $ = (id) => document.getElementById(id);
+console.log('LVA ADMIN JS CHARGÉ - VERSION TEST 2026');
 
 $('year').textContent = new Date().getFullYear();
 
