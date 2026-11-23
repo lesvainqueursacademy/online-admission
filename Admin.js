@@ -216,7 +216,7 @@ $('refresh-button').addEventListener('click', async () => {
 });
 
 $('forgot-password-button').addEventListener('click', () => {
-  $('reset-request-form').classList.toggle('hidden');
+  $('reset-request-view').classList.toggle('hidden');
   $('reset-email').value = $('email').value.trim();
 });
 
